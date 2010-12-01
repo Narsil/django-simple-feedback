@@ -1,0 +1,24 @@
+{% load i18n %}
+<div id="feedback_container">
+	<div id="feedback_opener"></div>
+	<div id="feedback_slider">
+		<div id="feedback_content">
+			<img src="{{ FEEDBACK_MEDIA_URL }}img/user.png"/><h3>Cher utilisateur,</h3>
+			<p>{% trans "Vous n'êtes pas content? Vous avez <strong>un bug</strong> à signaler, une remarque, une <strong>suggestion</strong>, un encouragement, des problèmes en amour?" %}<br/>
+				<br/>
+				{% trans "Dites le nous, on vous règlera ça."%}<br/>
+				<br/>
+			<form id="feedback_form" method="post">
+			  {% csrf_token %}
+			  <p>
+				<textarea name="feedback"></textarea>
+			  </p>
+			  <input type="submit" value="{% trans "Envoyer" %}"/>
+			</form>
+
+		</div>
+		<div id="feedback_openclose">
+			<a href="#" id="feedback_action"></a>
+		</div>
+	</div>
+</div>
