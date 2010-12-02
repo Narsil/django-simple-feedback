@@ -3,7 +3,7 @@ from django.contrib import admin
 admin.autodiscover()
 import settings
 
-_PREFIX = getattr(settings, 'FEEDBACK_PREFIX' ,'__feedback__')
+_PREFIX = getattr(settings, 'FEEDBACK_PREFIX' ,'/__feedback__')
 
 urlpatterns = patterns('',
         (r'^%s/$' % _PREFIX,'feedback.views.feedback'),
