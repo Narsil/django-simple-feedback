@@ -1,5 +1,5 @@
 =====================================
-django-feedback (django-feedback)
+django-simple-feedback (django-simple-feedback)
 =====================================
 
 This Django_ app has for purpose to integrate easily user based feedback.
@@ -8,13 +8,21 @@ It aims to be easily added into existing projects and pretty on any website.
 Installation 
 ============
 
-Installing django-feedback
+Depedencies  
+~~~~~~~~~~~
+
+django-simple-feedback requires jquery to function. 
+Don't forget to put it in your django scripts. 
+If you have a solution for putting it in case it's missing feel free to contact me.
+Including it systematically breaks may break other plugins.
+
+Installing django-simple-feedback
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Install into your python path using pip or easy_install::
 
-    pip install django-feedback
-    easy_install django-feedback
+    pip install django-simple-feedback
+    easy_install django-simple-feedback
 
 Add *'feedback'* to your INSTALLED_APPS in settings.py::
 
@@ -43,10 +51,10 @@ Don't forget to run ::
         
 to create the table that is going to receive the feedbacks.
 
-Modifying urls for django-feedback  
+Modifying urls for django-simple-feedback  
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can if you wish modify the urls for django-feedback by adding:: 
+You can if you wish modify the urls for django-simple-feedback by adding:: 
 
     FEEDBACK_PREFIX = 'mynewfeedbackprefix'
 
