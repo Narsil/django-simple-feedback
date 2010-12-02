@@ -3,9 +3,10 @@ from django.contrib import admin
 admin.autodiscover()
 import settings
 
-_PREFIX = getattr(settings, 'FEEDBACK_PREFIX' ,'/__feedback__')
+PREFIX = getattr(settings, 'FEEDBACK_PREFIX' ,'__feedback__')
+_PREFIX = "/%s" %PREFIX
 
 urlpatterns = patterns('',
-        (r'^%s/$' % _PREFIX,'feedback.views.feedback'),
-        (r'^%s/media/(.*)$' %_PREFIX,'feedback.views.feedback_media'),
+        (r'^%s/$' % PREFIX,'feedback.views.feedback'),
+        (r'^%s/media/(.*)$' %PREFIX,'feedback.views.feedback_media'),
 )
