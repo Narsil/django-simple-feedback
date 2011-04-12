@@ -14,7 +14,7 @@ Depedencies
 django-simple-feedback requires jquery to function. 
 Don't forget to put it in your django scripts. 
 If you have a solution for putting it in case it's missing feel free to contact me.
-Including it systematically breaks may break other plugins.
+Including it systematically may break other plugins.
 
 Installing django-simple-feedback
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

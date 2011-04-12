@@ -1,6 +1,4 @@
-
-
-$(document).ready(function() {
+jQuery(document).ready(function($) {
     
     $("#feedback_action").click( function() {
         if ($("#feedback_opener").is(":hidden")) {
@@ -13,7 +11,7 @@ $(document).ready(function() {
         }
     });
     $("#feedback_form").submit(function(){
-	$.post(FEEDBACK_PREFIX+'/',{'feedback':$("#feedback_form textarea").attr("value")});
+	$.post(FEEDBACK_PREFIX+'/',$(this).serialize());
 	$("#feedback_form textarea").attr("value","");
 	$("#feedback_action").click();
 	return false;

@@ -16,8 +16,10 @@ def feedback(request):
                 user=request.user,
                 feedback=request.POST.get("feedback"))
         c.save()
+    #return HttpResponseRedirect(reverse('main.views.index'))
+    if request.is_ajax():
+        return HttpResponse(simplejson.dumps({"feedback":"accepted"}),mimetype="json")
     return HttpResponseRedirect(reverse('main.views.index'))
-    #return HttpResponse(simplejson.dumps{"feedback":"accepted"},mimetype="json")
 
 def feedback_media(request, path):
     parent = os.path.abspath(os.path.dirname(__file__))
