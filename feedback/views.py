@@ -13,12 +13,23 @@ import models
 def feedback(request):
     if request.method=="POST":
         c = models.Feedback(
-                user=request.user,
                 feedback=request.POST.get("feedback"))
         c.save()
+        c.upvote(request.user)
     #return HttpResponseRedirect(reverse('main.views.index'))
     if request.is_ajax():
         return HttpResponse(simplejson.dumps({"feedback":"accepted"}),mimetype="json")
+    return HttpResponseRedirect(reverse('main.views.index'))
+
+@login_required
+def upvote(request,feedback_id, upvote):
+    f = get_object_or_404(Feedback,id=feedback_id)
+    f.upvote(request.user,upvote)
+    upvote_msg='upvoted'
+    if not upvote:
+        upvote_msg='downvoted'
+    if request.is_ajax():
+        return HttpResponse(simplejson.dumps({"feedback":upvote_msg}),mimetype="json")
     return HttpResponseRedirect(reverse('main.views.index'))
 
 def feedback_media(request, path):
