@@ -16,4 +16,8 @@ jQuery(document).ready(function($) {
 	$("#feedback_action").click();
 	return false;
     }); 
+
+    $("#closeicon").click(function(){
+        $("#feedback_action").click();
+    });
 });

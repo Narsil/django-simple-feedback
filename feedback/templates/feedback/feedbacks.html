@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<ul id="feedbacks">
+{% for feedback in top_feedbacks %}
+<li>
+    <p class="votes">
+        <a href="{% url feedback.views.upvote feedback.id %}"><img src="{{ MEDIA_URL }}/img/up.png" height="32px" alt="Up"/></a>
+        {{ feedback.sco }}
+        <a href="{% url feedback.views.downvote feedback.id %}"><img src="{{ MEDIA_URL }}/img/down.png" height="32px" alt="Down"/></a>
+    </p>
+    <p class="feedback">
+        {{ feedback.feedback }}
+    </p>
+</li>
+{% endfor %}
+</ul>
+{% endblock %}

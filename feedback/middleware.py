@@ -3,18 +3,37 @@ from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from urls import _PREFIX
 from django.conf.urls.defaults import include, patterns
+from django.conf import settings
 from django.template import RequestContext
-
+from django.db.models import Count
+from feedback import settings as local_settings
+import models
 
 def render_feedback(request,template='feedback/base.html'):
+    TOP_FEEDBACKS_COUNT = getattr(
+            settings,
+            'TOP_FEEDBACKS_COUNT',
+            local_settings.TOP_FEEDBACKS_COUNT)
     #base_url = request.META.get("SCRIPT_NAME", '')
     feedback_media_url = u'%s/media/'%_PREFIX
     #return render_to_string(template, RequestContext({
     #                    'FEEDBACK_MEDIA_URL': feedback_media_url,
     #                    'FEEDBACK_PREFIX': _PREFIX}))
+    top_feedbacks = models.Feedback.objects\
+            .annotate(Count('votes'))\
+            .order_by('-votes__count')\
+            [:TOP_FEEDBACKS_COUNT]
+
+    for feedback in top_feedbacks:
+        feedback.conf = feedback.confidence()
+        feedback.sco = feedback.score()
+    top_feedbacks = list(top_feedbacks)
+    top_feedbacks.sort(key=lambda x:x.conf)
+    top_feedbacks.reverse()
     context = RequestContext(request)
     context['FEEDBACK_MEDIA_URL']=feedback_media_url
     context['FEEDBACK_PREFIX']=_PREFIX
+    context['top_feedbacks']=top_feedbacks
     return render_to_string(template, context)
 
 def replace_insensitive(string, target, replacement):

@@ -7,6 +7,8 @@ from django.core.urlresolvers import reverse
 import os
 import django.views.static
 import models
+from django.db.models import Count
+from django.shortcuts import get_object_or_404,render_to_response
 
 
 @login_required
@@ -22,8 +24,23 @@ def feedback(request):
     return HttpResponseRedirect(reverse('main.views.index'))
 
 @login_required
-def upvote(request,feedback_id, upvote):
-    f = get_object_or_404(Feedback,id=feedback_id)
+def feedbacks(request):
+    feedbacks = models.Feedback.objects.all()\
+        .annotate(Count('votes'))\
+        .order_by('-votes__count')
+    return render_to_response('feedback/feedbacks.html',{'feedbacks':feedbacks})
+
+@login_required
+def upvote(request,feedback_id):
+    return vote(request,feedback_id,True)
+
+@login_required
+def downvote(request,feedback_id):
+    return vote(request,feedback_id,False)
+
+@login_required
+def vote(request,feedback_id, upvote):
+    f = get_object_or_404(models.Feedback,id=feedback_id)
     f.upvote(request.user,upvote)
     upvote_msg='upvoted'
     if not upvote:

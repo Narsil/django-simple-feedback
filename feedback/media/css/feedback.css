@@ -67,12 +67,17 @@
 	padding:14px;
 }
 
-#feedback_content img
+#feedback_content .userimg
 {
 	float:right;
-	height:60px;
 	padding:2px;
-	background:white;
+}
+
+#closeicon
+{
+    position:absolute;
+    top:0px;
+    right:0px;
 }
 
 #feedback_content h3
@@ -81,9 +86,44 @@
 	margin-bottom:8px;
 }
 
-#feedback_content p
+#feedback_content a
 {
-	line-height:16px;
+    display:block;
+}
+
+#top_feedbacks
+{
+    position:absolute;
+    bottom:10px;
+    border:solid 1px darkblue;
+    padding:10px;
+    border-radius:20px;
+    -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+}
+
+#feedbacks li
+{
+    border:solid 1px darkblue;
+    background:#B6DAFF;
+    overflow:auto;
+    border-radius:20px;
+    -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+    margin:10px 0px 10px 0px;
+}
+
+#feedback_content .votes
+{
+    float:left;
+    text-align:center;
+    clear:both;
+}
+
+#feedback_content .feedback
+{
+    float:left;
+    vertical-align:middle;
 }
 
 #feedback_content textarea

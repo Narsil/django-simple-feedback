@@ -3,11 +3,13 @@
 	<div id="feedback_opener"></div>
 	<div id="feedback_slider">
 		<div id="feedback_content">
-			<img src="{{ FEEDBACK_MEDIA_URL }}img/user.png"/><h3>Cher utilisateur,</h3>
+                        <a href="#"><img id="closeicon" src="{{ FEEDBACK_MEDIA_URL}}img/close_icon.jpg" alt="Close" height="14px"/></a>
+			<img class="userimg" src="{{ FEEDBACK_MEDIA_URL }}img/user.png" alt="User" height="60px"/><h3>Cher utilisateur,</h3>
 			<p>{% trans "Vous n'êtes pas content? Vous avez <strong>un bug</strong> à signaler, une remarque, une <strong>suggestion</strong>, un encouragement ?" %}<br/>
 				<br/>
-				{% trans "Dites le nous, on vous règlera ça."%}<br/>
+				{% trans "Dites le nous ,"%}<br/>
 				<br/>
+
 			<form id="feedback_form" method="post">
 			  {% csrf_token %}
 			  <p>
@@ -15,9 +17,28 @@
 			  </p>
 			  <input type="submit" value="{% trans "Envoyer" %}"/>
 			</form>
-			{% comment %}
- 			TOP FEEDBACKS
-			{% endcomment %}
+                        {% if top_feedbacks %}
+                        <div id="top_feedbacks">
+                            <h3>{% trans "Commentaires populaires" %}</h3>
+                            <ul id="feedbacks">
+                            {% for feedback in top_feedbacks %}
+                            <li>
+                                <p class="votes">
+                                    <a href="{% url feedback.views.upvote feedback.id %}"><img src="{{ MEDIA_URL }}/img/up.png" height="32px" alt="Up"/></a>
+                                    {{ feedback.sco }}
+                                    <a href="{% url feedback.views.downvote feedback.id %}"><img src="{{ MEDIA_URL }}/img/down.png" height="32px" alt="Down"/></a>
+                                </p>
+                                <p class="feedback">
+                                    {{ feedback.feedback }}
+                                </p>
+                            </li>
+                            {% endfor %}
+                            </ul>
+                            {% comment %}
+                            <a href="{% url feedback.views.feedbacks %}">Tous les commentaires</a>
+                            {% endcomment %}
+                        </div>
+                        {% endif %}
 
 		</div>
 		<div id="feedback_openclose">
