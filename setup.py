@@ -5,12 +5,21 @@ from setuptools import setup,find_packages
 METADATA = dict(
     name='django-simple-feedback',
     version='0.1',
+
     author='Nicolas Patry',
     author_email='nicolas.patry@student.ecp.fr',
+
     description="""Django application that allows you to easily get user
 feedbacks. Users need to be registrated via django.contrib.auth.""",
     long_description=open('README.rst').read(),
+
     url='http://github.com/Narsil/django-simple-feedback',
+    download_url='http://github.com/Narsil/django-userpreferences',
+
+    include_package_data = True,
+
+    packages=find_packages(),
+
     keywords='django feedback bugs suggestions',
     classifiers=[
         'Development Status :: 4 - Beta',
