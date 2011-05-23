@@ -6,14 +6,11 @@ from django.conf.urls.defaults import include, patterns
 from django.conf import settings
 from django.template import RequestContext
 from django.db.models import Count
-from feedback import settings as local_settings
+from feedback import app_settings
 import models
 
 def render_feedback(request,template='feedback/base.html'):
-    TOP_FEEDBACKS_COUNT = getattr(
-            settings,
-            'TOP_FEEDBACKS_COUNT',
-            local_settings.TOP_FEEDBACKS_COUNT)
+    TOP_FEEDBACKS_COUNT = app_settings.TOP_FEEDBACKS_COUNT
     #base_url = request.META.get("SCRIPT_NAME", '')
     feedback_media_url = u'%s/media/'%_PREFIX
     #return render_to_string(template, RequestContext({

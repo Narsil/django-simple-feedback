@@ -9,6 +9,9 @@ import django.views.static
 import models
 from django.db.models import Count
 from django.shortcuts import get_object_or_404,render_to_response
+from django.core.mail import send_mail
+from django.conf import settings
+import app_settings
 
 
 @login_required
@@ -18,7 +21,12 @@ def feedback(request):
                 feedback=request.POST.get("feedback"))
         c.save()
         c.upvote(request.user)
-    #return HttpResponseRedirect(reverse('main.views.index'))
+        if app_settings.FEEDBACK_SEND_MAILL:
+            send_mail('Feedback',
+                    request.POST.get('feedback'),
+                    'feedback@kwyk.fr',
+                    settings.MANAGERS,
+                    fail_silently=True)
     if request.is_ajax():
         return HttpResponse(simplejson.dumps({"feedback":"accepted"}),mimetype="json")
     return HttpResponseRedirect(reverse('main.views.index'))
