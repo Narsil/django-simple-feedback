@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth import models as auth_models
 from math import sqrt
+from feedback import app_settings
+from django.core.mail import send_mail
+from django.conf import settings
 # Create your models here.
 
 
@@ -15,6 +18,7 @@ class Vote(models.Model):
 
 class Feedback(models.Model):
     feedback = models.CharField(max_length=1000,blank=True,null=True)
+    path = models.CharField(max_length=256,blank=True,null=True)
 
     def upvote(self,user,upvote=True):
         vote = Vote(feedback=self,user=user,vote=upvote)
@@ -40,6 +44,15 @@ class Feedback(models.Model):
         z = 1.0 #1.0 = 85%, 1.6 = 95%
         phat = float(ups) / n
         return sqrt(phat+z*z/(2*n)-z*((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n)
+
+    def save(self,*args,**kwargs):
+        super(Feedback,self).save(*args,**kwargs)
+        if app_settings.FEEDBACK_SEND_MAIL:
+            send_mail('Feedback',
+                    self.feedback,
+                    'feedback@kwyk.fr',
+                    settings.MANAGERS,
+                    fail_silently=True)
 
     def __unicode__(self):
         if not self.votes.all():

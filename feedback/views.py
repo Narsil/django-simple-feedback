@@ -9,24 +9,17 @@ import django.views.static
 import models
 from django.db.models import Count
 from django.shortcuts import get_object_or_404,render_to_response
-from django.core.mail import send_mail
-from django.conf import settings
-import app_settings
 
 
 @login_required
 def feedback(request):
     if request.method=="POST":
         c = models.Feedback(
-                feedback=request.POST.get("feedback"))
+                feedback=request.POST.get("feedback"),
+                path=request.POST.get('path'),
+                )
         c.save()
         c.upvote(request.user)
-        if app_settings.FEEDBACK_SEND_MAILL:
-            send_mail('Feedback',
-                    request.POST.get('feedback'),
-                    'feedback@kwyk.fr',
-                    settings.MANAGERS,
-                    fail_silently=True)
     if request.is_ajax():
         return HttpResponse(simplejson.dumps({"feedback":"accepted"}),mimetype="json")
     return HttpResponseRedirect(reverse('main.views.index'))
