@@ -4,10 +4,14 @@ from django.test.client import Client
 from feedback import app_settings
 from feedback import models
 from django.core import mail
+from django.core.urlresolvers import reverse
+from django.test.client import Client
 
 class FeedbackTest(TestCase):
     def setUp(self):
         self.u = User.objects.create_user('testuser', 'test@example.com', 'testpw')
+        self.client = Client()
+        self.client.login(username='testuser',password='testpw')
 
     def test_email(self):
         app_settings.FEEDBACK_SEND_MAIL=True
@@ -27,5 +31,20 @@ class FeedbackTest(TestCase):
         self.assertEqual(len(mail.outbox),1)
 
 
-    def tearDown(self):
-        pass
+    def test_url_feedback_no_ajax(self):
+        c = self.client
+        url = reverse('feedback.views.feedback')
+        response = c.post(url,{'feedback':'test_feedback','path':'/'})
+        feedback = models.Feedback.objects.filter(feedback='test_feedback')
+        self.assertEqual(len(feedback),1)
+        self.assertEqual(feedback[0].feedback,'test_feedback')
+        self.assertEqual(feedback[0].path,'/')
+        self.assertEqual(response.status_code,302)
+
+    def test_url_feedback_ajax(self):
+        c = self.client
+        url = reverse('feedback.views.feedback')
+        response = c.post(url,{'feedback':'test_feedback','path':'/'},
+                HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code,200)
+        self.assertEqual(response.content,'{"feedback": "accepted"}')

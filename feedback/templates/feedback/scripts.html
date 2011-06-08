@@ -1,13 +1,9 @@
-<link rel="stylesheet" type="text/css" href="{{ FEEDBACK_MEDIA_URL }}css/feedback.css" />
-
-<script type="text/javascript" charset="utf-8">
-// <![CDATA[
-var FEEDBACK_MEDIA_URL = "{{ FEEDBACK_MEDIA_URL }}";
-var FEEDBACK_PREFIX = "{{ FEEDBACK_PREFIX }}";
-// ]]>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/feedback.css" />
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript">
+    var FEEDBACK_POST_URL = '{% url feedback.views.feedback %}';
 </script>
-<script type="text/javascript" src="{{ FEEDBACK_MEDIA_URL }}js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript">jQuery.noConflict()</script>
-<script type="text/javascript" src="{{ FEEDBACK_MEDIA_URL }}js/feedback.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/feedback.js"></script>
 
 

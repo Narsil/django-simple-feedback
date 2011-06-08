@@ -11,7 +11,7 @@ jQuery(document).ready(function($) {
         }
     });
     $("#feedback_form").submit(function(){
-	$.post(FEEDBACK_PREFIX+'/',$(this).serialize());
+	$.post(FEEDBACK_POST_URL,$(this).serialize());
 	$("#feedback_form textarea").attr("value","");
 	$("#feedback_action").click();
 	return false;

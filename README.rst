@@ -5,6 +5,12 @@ django-simple-feedback (django-simple-feedback)
 This Django_ app has for purpose to integrate easily user based feedback.
 It aims to be easily added into existing projects and pretty on any website.
 
+NEW in master
+~~~~~~~~~~~~~
+master version is now operational for Django-1.3 with `collectstatic <https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#collectstatic>`_
+This will break backward compatibility, branch django-1.2.5 is the last working
+state for Django-1.2.5
+
 Installation 
 ============
 

@@ -11,11 +11,7 @@ import models
 
 def render_feedback(request,template='feedback/base.html'):
     TOP_FEEDBACKS_COUNT = app_settings.TOP_FEEDBACKS_COUNT
-    #base_url = request.META.get("SCRIPT_NAME", '')
     feedback_media_url = u'%s/media/'%_PREFIX
-    #return render_to_string(template, RequestContext({
-    #                    'FEEDBACK_MEDIA_URL': feedback_media_url,
-    #                    'FEEDBACK_PREFIX': _PREFIX}))
     top_feedbacks = models.Feedback.objects\
             .annotate(Count('votes'))\
             .order_by('-votes__count')\
@@ -28,8 +24,6 @@ def render_feedback(request,template='feedback/base.html'):
     top_feedbacks.sort(key=lambda x:x.conf)
     top_feedbacks.reverse()
     context = RequestContext(request)
-    context['FEEDBACK_MEDIA_URL']=feedback_media_url
-    context['FEEDBACK_PREFIX']=_PREFIX
     context['top_feedbacks']=top_feedbacks
     return render_to_string(template, context)
 
