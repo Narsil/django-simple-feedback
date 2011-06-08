@@ -25,6 +25,13 @@ def render_feedback(request,template='feedback/base.html'):
     top_feedbacks.reverse()
     context = RequestContext(request)
     context['top_feedbacks']=top_feedbacks
+    # within tests where urls are different, middleware cannot reverse the url.
+    # The app is ill configured and instead of just breaking tests, attempt a
+    # good guess. This is still a HACK.
+    try:
+        context['FEEDBACK_POST_URL'] = reverse('feedback.views.feedback')
+    except:
+        context['FEEDBACK_POST_URL'] = _PREFIX
     return render_to_string(template, context)
 
 def replace_insensitive(string, target, replacement):
