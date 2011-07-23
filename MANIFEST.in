@@ -1,3 +1,4 @@
 include README.rst
-recursive-include preferences/media *
-recursive-include preferences/templates *
+recursive-include feedback/media *
+recursive-include feedback/templates *
+recursive-include feedback/static *
