@@ -2,8 +2,6 @@ from django.utils.encoding import smart_unicode
 from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from urls import _PREFIX
-from django.conf.urls.defaults import include, patterns
-from django.conf import settings
 from django.template import RequestContext
 from django.db.models import Count
 from feedback import app_settings
@@ -11,7 +9,6 @@ import models
 
 def render_feedback(request,template='feedback/base.html'):
     TOP_FEEDBACKS_COUNT = app_settings.TOP_FEEDBACKS_COUNT
-    feedback_media_url = u'%s/media/'%_PREFIX
     top_feedbacks = models.Feedback.objects\
             .annotate(Count('votes'))\
             .order_by('-votes__count')\
@@ -57,7 +54,8 @@ class FeedbackMiddleware(object):
         self.body = u'</body>'
 
     def process_response(self,request,response):
-        if response.status_code == 200 and request.user.is_authenticated():
+        if response.status_code == 200 and request.user.is_authenticated() \
+                and 'gzip' not in response.get('Content-Encoding', ''):
             if response['Content-Type'].split(';')[0] in _HTML_TYPES:
                 response.content = replace_insensitive(
                     smart_unicode(response.content),
