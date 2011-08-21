@@ -47,11 +47,16 @@ class Feedback(models.Model):
 
     def save(self,*args,**kwargs):
         super(Feedback,self).save(*args,**kwargs)
-        if app_settings.FEEDBACK_SEND_MAIL:
-            send_mail('Feedback',
-                    self.feedback,
-                    'feedback@kwyk.fr',
-                    settings.MANAGERS,
+        if app_settings.FEEDBACK_SEND_MAIL and app_settings.FEEDBACK_FROM:
+            _dict = {
+                    'feedback': self.feedback,
+                    'path': self.path,
+                    }
+
+            send_mail(app_settings.FEEDBACK_SUBJECT % _dict,
+                    app_settings.FEEDBACK_BODY % _dict,
+                    app_settings.FEEDBACK_FROM,
+                    app_settings.FEEDBACK_TO,
                     fail_silently=True)
 
     def __unicode__(self):

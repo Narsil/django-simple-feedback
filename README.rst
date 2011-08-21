@@ -54,15 +54,30 @@ Don't forget to run ::
         
 to create the table that is going to receive the feedbacks.
 
+Receiving mail of feedbacks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+If you wish to receive mail when someone posts some feedback then you need to
+configure these which are the defaults::
+
+    FEEDBACK_SEND_MAIL = True
+    FEEDBACK_FROM = 'feedback@example.com'
+    FEEDBACK_TO = map(lambda x:x[1], settings.MANAGERS) (should be managers emails)
+    FEEDBACK_SUBJECT = '[feedback] %(path)s'
+    FEEDBACK_BODY = '%(feedback)s'
+
+In `FEEDBACK_SUBJECT` and `FEEDBACK_BODY` you are able to customize the text.
+each string is formatted with a dict containing the path on which the feedback
+was made and the core of the message
+
 Modifying urls for django-simple-feedback  
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can if you wish modify the urls for django-simple-feedback by adding:: 
 
     FEEDBACK_PREFIX = 'mynewfeedbackprefix'
 
 Changing the number of top feedbacks
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Top feedbacks can be changed with the settings::
 
