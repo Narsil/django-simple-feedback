@@ -5,9 +5,9 @@
 {% for feedback in top_feedbacks %}
 <li>
     <p class="votes">
-        <a href="{% url feedback.views.upvote feedback.id %}"><img src="{{ STATIC_URL }}/img/up.png" height="32px" alt="Up"/></a>
+        <a href="{% url feedback.views.upvote feedback.id %}"><img src="{{ STATIC_URL }}feedback/img/up.png" height="32px" alt="Up"/></a>
         {{ feedback.sco }}
-        <a href="{% url feedback.views.downvote feedback.id %}"><img src="{{ STATIC_URL }}/img/down.png" height="32px" alt="Down"/></a>
+        <a href="{% url feedback.views.downvote feedback.id %}"><img src="{{ STATIC_URL }}feedback/img/down.png" height="32px" alt="Down"/></a>
     </p>
     <p class="feedback">
         {{ feedback.feedback }}

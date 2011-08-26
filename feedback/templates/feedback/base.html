@@ -4,15 +4,15 @@
 	<div id="feedback_slider">
 		<div id="feedback_content">
                         <a href="#"><img id="closeicon" src="{{ STATIC_URL}}img/close_icon.jpg" alt="Close" height="14px"/></a>
-			<img class="userimg" src="{{ STATIC_URL }}img/user.png" alt="User" height="60px"/><h3>Cher utilisateur,</h3>
+			<img class="userimg" src="{{ STATIC_URL }}feedback/img/user.png" alt="User" height="60px"/><h3>Cher utilisateur,</h3>
 			<p>{% trans "Vous n'êtes pas content? Vous avez <strong>un bug</strong> à signaler, une remarque, une <strong>suggestion</strong>, un encouragement ?" %}<br/>
 				<br/>
 				{% trans "Dites le nous ,"%}<br/>
 				<br/>
 
-			<form id="feedback_form" method="post">
+            <form id="feedback_form" method="post" action="{% url feedback.views.feedback %}">
 			  {% csrf_token %}
-                          <input type="hidden" name="path" value="{{ request.path }}" />
+                          <input type="hidden" name="path" value="{{ PATH }}" />
 			  <p>
 				<textarea name="feedback"></textarea>
 			  </p>
@@ -25,9 +25,9 @@
                             {% for feedback in top_feedbacks %}
                             <li>
                                 <p class="votes">
-                                    <a href="{% url feedback.views.upvote feedback.id %}"><img src="{{ STATIC_URL }}/img/up.png" height="32px" alt="Up"/></a>
+                                    <a href="{% url feedback.views.upvote feedback.id %}"><img src="{{ STATIC_URL }}feedback/img/up.png" height="32px" alt="Up"/></a>
                                     {{ feedback.sco }}
-                                    <a href="{% url feedback.views.downvote feedback.id %}"><img src="{{ STATIC_URL }}/img/down.png" height="32px" alt="Down"/></a>
+                                    <a href="{% url feedback.views.downvote feedback.id %}"><img src="{{ STATIC_URL }}feedback/img/down.png" height="32px" alt="Down"/></a>
                                 </p>
                                 <p class="feedback">
                                     {{ feedback.feedback }}

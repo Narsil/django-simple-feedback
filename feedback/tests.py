@@ -5,7 +5,6 @@ from feedback import app_settings
 from feedback import models
 from django.core import mail
 from django.core.urlresolvers import reverse
-from django.test.client import Client
 
 class FeedbackTest(TestCase):
     def setUp(self):

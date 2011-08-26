@@ -4,7 +4,7 @@ from setuptools import setup,find_packages
 
 METADATA = dict(
     name='django-simple-feedback',
-    version='0.1',
+    version='0.2',
 
     author='Nicolas Patry',
     author_email='nicolas.patry@student.ecp.fr',

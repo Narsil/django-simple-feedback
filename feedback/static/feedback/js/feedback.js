@@ -11,10 +11,11 @@ jQuery(document).ready(function($) {
         }
     });
     $("#feedback_form").submit(function(){
-	$.post(FEEDBACK_POST_URL,$(this).serialize());
-	$("#feedback_form textarea").attr("value","");
-	$("#feedback_action").click();
-	return false;
+        $.post($("#feedback_form").attr("action"),
+            $(this).serialize());
+        $("#feedback_form textarea").attr("value","");
+        $("#feedback_action").click();
+        return false;
     }); 
 
     $("#closeicon").click(function(){
