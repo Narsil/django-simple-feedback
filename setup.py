@@ -14,7 +14,7 @@ feedbacks. Users need to be registrated via django.contrib.auth.""",
     long_description=open('README.rst').read(),
 
     url='http://github.com/Narsil/django-simple-feedback',
-    download_url='http://github.com/Narsil/django-userpreferences',
+    download_url='http://github.com/Narsil/django-simple-feedback',
 
     include_package_data = True,
 
