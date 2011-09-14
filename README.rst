@@ -17,15 +17,15 @@ Installation
 Depedencies  
 ~~~~~~~~~~~
 
-django-simple-feedback requires jQuery, and it includes it in noConflict mode.
+django-simple-feedback requires jQuery, and it includes it in its static files.
 
 Installing django-simple-feedback
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Install into your python path using pip or easy_install::
+Install into your python path using pip or github version::
 
     pip install django-simple-feedback
-    easy_install django-simple-feedback
+    pip install -e git://github.com/Narsil/django-simple-feedback
 
 Add *'feedback'* to your INSTALLED_APPS in settings.py::
 
@@ -34,18 +34,25 @@ Add *'feedback'* to your INSTALLED_APPS in settings.py::
         'feedback',
     )
 
-Add *'feedback.middleware.FeedbackMiddleware'* to you MIDDLEWARE_CLASSES::
+Add css and javascript in your *'base.html'* template (jQuery is optional if you already include it::
 
-    MIDDLEWARE_CLASSES = (
-        ...
-        'feedback.middleware.FeedbackMiddleware',
-    )
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}feedback/css/feedback.css" />
 
-Add *'(r'^', include('feedback.urls')'* to your urls:: 
+    <script type="text/javascript" src="{{ STATIC_URL }}feedback/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}feedback/js/feedback.js"></script>
+
+And then in templates where you want feedback to appear::
+
+    {% load feedback_tags %}
+    ....
+
+    {% feedback %}
+
+Add *'(r'^feedback', include('feedback.urls')'* to your urls:: 
 
     urlpatterns = patterns( '',
         ....
-        (r'^', include('feedback.urls'),
+        (r'^feedback', include('feedback.urls'),
     )
 
 Don't forget to run ::
@@ -68,17 +75,3 @@ configure these which are the defaults::
 In `FEEDBACK_SUBJECT` and `FEEDBACK_BODY` you are able to customize the text.
 each string is formatted with a dict containing the path on which the feedback
 was made and the core of the message
-
-Modifying urls for django-simple-feedback  
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-You can if you wish modify the urls for django-simple-feedback by adding:: 
-
-    FEEDBACK_PREFIX = 'mynewfeedbackprefix'
-
-Changing the number of top feedbacks
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Top feedbacks can be changed with the settings::
-
-    TOP_FEEDBACKS_COUNT = {0,1,2}

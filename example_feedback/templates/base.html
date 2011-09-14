@@ -1,7 +1,10 @@
 {% load feedback_tags %}
 <html>
     <head>
-        {% feedback_scripts %}
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}feedback/css/feedback.css" />
+
+        <script type="text/javascript" src="{{ STATIC_URL }}feedback/js/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}feedback/js/feedback.js"></script>
     </head>
     <body>
         Please login to see feedback in action !
