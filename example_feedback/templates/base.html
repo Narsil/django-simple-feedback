@@ -14,6 +14,9 @@
             <label>Password :</label><input type="password" value="doe" name="password"/>
             <input type="submit" value="Submit"/>
         </form>
+        <p>Visit the <a href="{% url admin:index %}">Admin interface</a></p>
     </body>
-    {% feedback %}
+    {% if user.is_authenticated %}
+        {% feedback %}
+    {% endif %}
 </html>

@@ -45,6 +45,12 @@ class Feedback(models.Model):
         phat = float(ups) / n
         return sqrt(phat+z*z/(2*n)-z*((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n)
 
+    def upvotes(self):
+        return self.votes.filter(vote=True).count()
+
+    def downvotes(self):
+        return self.votes.filter(vote=False).count()
+
     def save(self,*args,**kwargs):
         super(Feedback,self).save(*args,**kwargs)
         if app_settings.FEEDBACK_SEND_MAIL and app_settings.FEEDBACK_FROM:
