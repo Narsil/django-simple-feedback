@@ -2,7 +2,7 @@
 django-simple-feedback (django-simple-feedback)
 =====================================
 
-This Django_ app has for purpose to integrate easily user based feedback.
+This `Django<http://djangoproject.com>`_ app has for purpose to integrate easily user based feedback.
 It aims to be easily added into existing projects and pretty on any website.
 
 NEW in master
@@ -34,7 +34,7 @@ Add *'feedback'* to your INSTALLED_APPS in settings.py::
         'feedback',
     )
 
-Add css and javascript in your *'base.html'* template (jQuery is optional if you already include it::
+Add css and javascript in your *'base.html'* template (jQuery is optional if you already include it in your project)::
 
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}feedback/css/feedback.css" />
 
