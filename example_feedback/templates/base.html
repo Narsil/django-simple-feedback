@@ -1,0 +1,16 @@
+{% load feedback_tags %}
+<html>
+    <head>
+        {% feedback_scripts %}
+    </head>
+    <body>
+        Please login to see feedback in action !
+        <form action="/accounts/login/" method="post">
+            {% csrf_token %}
+            <label>Username :</label><input type="text" value="john" name="username"/>
+            <label>Password :</label><input type="password" value="doe" name="password"/>
+            <input type="submit" value="Submit"/>
+        </form>
+    </body>
+    {% feedback %}
+</html>
