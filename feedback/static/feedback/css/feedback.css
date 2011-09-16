@@ -139,6 +139,8 @@
 	height:30px;
 	width:80px;	
 	text-align:center;
+    background:white;
+    color:black;
 	background: -moz-linear-gradient(top,#EDEDED,white);
 	background: -webkit-gradient(linear,left top, left bottom,from(#EDEDED),to(white));
 	border:1px solid #999999;
