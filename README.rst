@@ -27,11 +27,15 @@ Install into your python path using pip or github version::
     pip install django-simple-feedback
     pip install -e git://github.com/Narsil/django-simple-feedback
 
-Add *'feedback'* to your INSTALLED_APPS in settings.py::
+Add *'feedback'* to your INSTALLED_APPS in settings.py, also make sure *'django.core.context_processors.request'* is in your TEMPLATE_CONTEXT_PROCESSORS::
 
     INSTALLED_APPS = (
         ...
         'feedback',
+    )
+    ....
+    TEMPLATE_CONTEXT_PROCESSORS = (
+        'django.core.context_processors.request'
     )
 
 Add css and javascript in your *'base.html'* template (jQuery is optional if you already include it in your project)::
