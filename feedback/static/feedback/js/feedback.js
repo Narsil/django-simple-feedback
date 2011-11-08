@@ -1,15 +1,11 @@
 jQuery(document).ready(function($) {
     
     $("#feedback_action").click( function() {
-        if ($("#feedback_opener").is(":hidden")) {
-            $("#feedback_slider, #feedback_openclose").toggleClass("open","fast" );
-            $("#feedback_opener").show();
-        } else {
-            $("#feedback_slider, #feedback_openclose").toggleClass("open","fast");	
-            $("#feedback_opener").hide();
+        $("#feedback_slider, #feedback_openclose").toggleClass("open","fast" );
+        $("#feedback_opener").toggle();
 	    return false;
-        }
     });
+
     $("#feedback_form").submit(function(){
         $.post($("#feedback_form").attr("action"),
             $(this).serialize());
