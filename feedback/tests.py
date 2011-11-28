@@ -13,20 +13,22 @@ class FeedbackTest(TestCase):
         self.client.login(username='testuser',password='testpw')
 
     def test_email(self):
-        app_settings.FEEDBACK_SEND_MAIL=True
-        feedback = models.Feedback(
-                feedback='test feedback',
-                path='/',
-                )
-        feedback.save()
+        app_settings.FEEDBACK_SEND_MAIL = True
+        app_settings.FEEDBACK_FROM = 'test@example.com'
+        c = self.client
+        url = reverse('feedback.views.feedback')
+        response = c.post(url,{'feedback':'test_feedback','path':'/'},
+                HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code,200)
+        self.assertEqual(response.content,'{"feedback": "accepted"}')
         self.assertEqual(len(mail.outbox),1)
 
+        app_settings.FEEDBACK_SEND_MAIL = False
+        response = c.post(url,{'feedback':'another test_feedback','path':'/path/'},
+                HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code,200)
+        self.assertEqual(response.content,'{"feedback": "accepted"}')
         app_settings.FEEDBACK_SEND_MAIL=False
-        feedback = models.Feedback(
-                feedback='another test feedback',
-                path='/other/path/',
-                )
-        feedback.save()
         self.assertEqual(len(mail.outbox),1)
 
 

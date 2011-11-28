@@ -4,10 +4,10 @@ from django.utils import simplejson
 # Create your views here.
 from django.http import HttpResponseRedirect
 from feedback import app_settings
-from django.core.urlresolvers import reverse
 import models
 from django.db.models import Count
 from django.shortcuts import get_object_or_404,render_to_response
+from django.core.mail import EmailMessage
 
 
 @login_required
@@ -19,6 +19,23 @@ def feedback(request):
                 )
         c.save()
         c.upvote(request.user)
+        if app_settings.FEEDBACK_SEND_MAIL and app_settings.FEEDBACK_FROM:
+            _dict = {
+                    'feedback': c.feedback,
+                    'path': c.path,
+            }
+            if app_settings.FEEDBACK_REPLY_TO_USER:
+                headers={'reply-To': request.user.email}
+            else:
+                headers={}
+            email = EmailMessage(app_settings.FEEDBACK_SUBJECT % _dict,
+                    app_settings.FEEDBACK_BODY % _dict,
+                    app_settings.FEEDBACK_FROM,
+                    app_settings.FEEDBACK_TO,
+                    headers=headers,
+            )
+            email.send(fail_silently=True)
+
     if request.is_ajax():
         return HttpResponse(simplejson.dumps({"feedback":"accepted"}),mimetype="json")
     return HttpResponseRedirect(app_settings.FEEDBACK_THANKS_URL)

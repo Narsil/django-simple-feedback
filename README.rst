@@ -72,6 +72,7 @@ configure these which are the defaults::
 
     FEEDBACK_SEND_MAIL = True
     FEEDBACK_FROM = 'feedback@example.com'
+    FEEDBACK_REPLY_TO_USER = True
     FEEDBACK_TO = map(lambda x:x[1], settings.MANAGERS) (should be managers emails)
     FEEDBACK_SUBJECT = '[feedback] %(path)s'
     FEEDBACK_BODY = '%(feedback)s'
