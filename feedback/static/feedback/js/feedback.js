@@ -1,8 +1,7 @@
 jQuery(document).ready(function($) {
     
     $("#feedback_action").click( function() {
-        $("#feedback_slider, #feedback_openclose").toggleClass("open","fast" );
-        $("#feedback_opener").toggle();
+        $("#feedback_slider, #feedback_openclose").toggleClass("open");
 	    return false;
     });
 
