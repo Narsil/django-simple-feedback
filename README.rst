@@ -79,9 +79,7 @@ configure these which are the defaults::
 
 In `FEEDBACK_SUBJECT` and `FEEDBACK_BODY` you are able to customize the text.
 each string is formatted with a dict containing information on the feedback.
-Dict is
-
-.. code-block:: python
+Dict is::
 
     {'feedback': 'This is a random comment made by random person',
      'path': 'url the feedback was made on',
