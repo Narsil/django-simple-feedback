@@ -20,14 +20,14 @@ class FeedbackTest(TestCase):
         response = c.post(url,{'feedback':'test_feedback','path':'/'},
                 HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code,200)
-        self.assertEqual(response.content,'{"feedback": "accepted"}')
+        self.assertEqual(response.content,'{"msg": "Bien re\\u00e7u, merci de votre participation", "feedback": "accepted"}')
         self.assertEqual(len(mail.outbox),1)
 
         app_settings.FEEDBACK_SEND_MAIL = False
         response = c.post(url,{'feedback':'another test_feedback','path':'/path/'},
                 HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code,200)
-        self.assertEqual(response.content,'{"feedback": "accepted"}')
+        self.assertEqual(response.content,'{"msg": "Bien re\\u00e7u, merci de votre participation", "feedback": "accepted"}')
         app_settings.FEEDBACK_SEND_MAIL=False
         self.assertEqual(len(mail.outbox),1)
 
@@ -48,4 +48,4 @@ class FeedbackTest(TestCase):
         response = c.post(url,{'feedback':'test_feedback','path':'/'},
                 HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code,200)
-        self.assertEqual(response.content,'{"feedback": "accepted"}')
+        self.assertEqual(response.content,'{"msg": "Bien re\\u00e7u, merci de votre participation", "feedback": "accepted"}')

@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.utils import simplejson
@@ -23,6 +24,8 @@ def feedback(request):
             _dict = {
                     'feedback': c.feedback,
                     'path': c.path,
+                    'user': request.user,
+                    'request': request,
             }
             if app_settings.FEEDBACK_REPLY_TO_USER:
                 headers={'reply-To': request.user.email}
@@ -37,7 +40,8 @@ def feedback(request):
             email.send(fail_silently=True)
 
     if request.is_ajax():
-        return HttpResponse(simplejson.dumps({"feedback":"accepted"}),mimetype="json")
+        return HttpResponse(simplejson.dumps({"feedback":"accepted",
+            'msg': 'Bien reçu, merci de votre participation'}),mimetype="json")
     return HttpResponseRedirect(app_settings.FEEDBACK_THANKS_URL)
 
 @login_required

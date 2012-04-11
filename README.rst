@@ -2,7 +2,7 @@
 django-simple-feedback (django-simple-feedback)
 =====================================
 
-This `Django<http://djangoproject.com>`_ app has for purpose to integrate easily user based feedback.
+This `Django <http://djangoproject.com>`_ app has for purpose to integrate easily user based feedback.
 It aims to be easily added into existing projects and pretty on any website.
 
 NEW in master
@@ -78,5 +78,12 @@ configure these which are the defaults::
     FEEDBACK_BODY = '%(feedback)s'
 
 In `FEEDBACK_SUBJECT` and `FEEDBACK_BODY` you are able to customize the text.
-each string is formatted with a dict containing the path on which the feedback
-was made and the core of the message
+each string is formatted with a dict containing information on the feedback.
+Dict is
+
+.. code-block:: python
+
+    {'feedback': 'This is a random comment made by random person',
+     'path': 'url the feedback was made on',
+     'user': User object,
+     'request': request object}  # You can access IP and USER_AGENT via request.
