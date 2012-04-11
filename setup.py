@@ -1,10 +1,28 @@
 #!/usr/bin/env python
-from setuptools import setup,find_packages
+from setuptools import setup, find_packages, Command
 
+class test_example_app(Command):
+    """Runs all tests under the sympy/ folder
+    """
+
+    description = "Run tests in example_feedback application"
+    user_options = []  # distutils complains if this is not here.
+
+    def initialize_options(self):  # distutils wants this
+        pass
+
+    def finalize_options(self):    # this too
+        pass
+
+    def run(self):
+        import os
+        import subprocess
+        os.chdir('example_feedback')
+        subprocess.call(['./manage.py', 'test'])
 
 METADATA = dict(
     name='django-simple-feedback',
-    version='0.2.4',
+    version='0.2.5',
 
     author='Nicolas Patry',
     author_email='nicolas.patry@student.ecp.fr',
@@ -33,7 +51,11 @@ License (LGPL)',
         'Programming Language :: Python',
         'Framework :: Django',
     ],
+    cmdclass = {
+        'test': test_example_app
+    }
 )
+
 
 if __name__ == '__main__':
     setup(**METADATA)
