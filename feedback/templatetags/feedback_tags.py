@@ -1,5 +1,6 @@
 from django.template import Library
 from django.conf import settings
+from feedback import app_settings
 
 register = Library()
 
@@ -12,5 +13,7 @@ def feedback(context):
         raise Exception("Please include 'django.core.context_processors.request' in TEMPLATE_CONTEXT_PROCESSORS")
     else:
         path = 'path not configured'
+
     return {'PATH': path,
+            'ASK_EMAIL': app_settings.FEEDBACK_ASK_EMAIL and not context['request'].user.email,
             'STATIC_URL': settings.STATIC_URL}

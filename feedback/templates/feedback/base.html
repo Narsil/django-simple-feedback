@@ -16,7 +16,7 @@
 			  {% csrf_token %}
               <input type="hidden" name="path" value="{{ PATH }}" />
 			  <p>
-				<textarea name="feedback"></textarea>
+                <textarea name="feedback">{% if ASK_EMAIL %}{% trans "Laisser un email pour que nous puissions vous répondre." %}{% endif %}</textarea>
 			  </p>
               <input type="submit" value="{% trans "Envoyer" %}" sending_value="{% trans "Envoi ..." %}" sent_value="{% trans "Envoyé"%}"/>
 			</form>

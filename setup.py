@@ -22,7 +22,7 @@ class test_example_app(Command):
 
 METADATA = dict(
     name='django-simple-feedback',
-    version='0.2.5',
+    version='0.2.6',
 
     author='Nicolas Patry',
     author_email='nicolas.patry@student.ecp.fr',

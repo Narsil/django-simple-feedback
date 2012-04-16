@@ -85,3 +85,9 @@ Dict is::
      'path': 'url the feedback was made on',
      'user': User object,
      'request': request object}  # You can access IP and USER_AGENT via request.
+
+Other settings are::
+
+    FEEDBACK_ASK_EMAIL = False
+
+Asks user to write his email when it is missing from his account.
