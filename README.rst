@@ -2,7 +2,7 @@
 django-simple-feedback (django-simple-feedback)
 =====================================
 
-..image :: https://secure.travis-ci.org/Narsil/django-simple-feedback.png
+.. image:: https://secure.travis-ci.org/Narsil/django-simple-feedback.png
 
 This `Django <http://djangoproject.com>`_ app has for purpose to integrate easily user based feedback.
 It aims to be easily added into existing projects and pretty on any website.
