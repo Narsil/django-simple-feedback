@@ -22,6 +22,7 @@ def feedback(request):
         c.upvote(request.user)
         if app_settings.FEEDBACK_SEND_MAIL and app_settings.FEEDBACK_FROM:
             _dict = {
+                    'id': c.id,
                     'feedback': c.feedback,
                     'path': c.path,
                     'user': request.user,

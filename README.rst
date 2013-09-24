@@ -83,7 +83,8 @@ In `FEEDBACK_SUBJECT` and `FEEDBACK_BODY` you are able to customize the text.
 each string is formatted with a dict containing information on the feedback.
 Dict is::
 
-    {'feedback': 'This is a random comment made by random person',
+    {'id': 42,
+     'feedback': 'This is a random comment made by random person',
      'path': 'url the feedback was made on',
      'user': User object,
      'request': request object}  # You can access IP and USER_AGENT via request.
