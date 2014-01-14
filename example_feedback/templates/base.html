@@ -5,8 +5,9 @@
 
         <script type="text/javascript" src="{{ STATIC_URL }}feedback/js/jquery-1.7.1.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}feedback/js/feedback.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body>
+    <body style="min-height:1400px">
         Please login to see feedback in action !
         <form action="/accounts/login/" method="post">
             {% csrf_token %}

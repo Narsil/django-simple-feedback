@@ -49,6 +49,12 @@
 	font-weight:bold;
 	background:url("../img/feedback.png") no-repeat;
 }
+@media(max-width:968px) {
+    #feedback_openclose{
+        bottom:0;
+        top:auto;
+    }
+}
 	
 #feedback_openclose.open
 {
