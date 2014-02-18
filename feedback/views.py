@@ -16,8 +16,9 @@ def feedback(request):
     if request.method=="POST":
         c = models.Feedback(
                 feedback=request.POST.get("feedback"),
+                user=request.user,
                 path=request.POST.get('path'),
-                )
+        )
         c.save()
         c.upvote(request.user)
         if app_settings.FEEDBACK_SEND_MAIL and app_settings.FEEDBACK_FROM:
