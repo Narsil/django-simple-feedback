@@ -14,6 +14,7 @@ def feedback(context):
     else:
         path = 'path not configured'
 
-    return {'PATH': path,
+    context.update( {'PATH': path,
             'ASK_EMAIL': app_settings.FEEDBACK_ASK_EMAIL and not context['request'].user.email,
-            'STATIC_URL': settings.STATIC_URL}
+            'STATIC_URL': settings.STATIC_URL})
+    return context

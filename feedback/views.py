@@ -14,27 +14,33 @@ from django.core.mail import EmailMessage
 @login_required
 def feedback(request):
     if request.method=="POST":
+        context = {key: value for key, value in request.POST.items() if key not in ['feedback', 'path']}
+        try:
+            context_json = simplejson.dumps(context)
+        except:
+            context_json = ''
         c = models.Feedback(
                 feedback=request.POST.get("feedback"),
                 user=request.user,
                 path=request.POST.get('path'),
+                extra=context_json,
         )
         c.save()
         c.upvote(request.user)
         if app_settings.FEEDBACK_SEND_MAIL and app_settings.FEEDBACK_FROM:
-            _dict = {
+            context.update({
                     'id': c.id,
                     'feedback': c.feedback,
                     'path': c.path,
                     'user': request.user,
                     'request': request,
-            }
+            })
             if app_settings.FEEDBACK_REPLY_TO_USER:
                 headers={'reply-To': request.user.email}
             else:
                 headers={}
-            email = EmailMessage(app_settings.FEEDBACK_SUBJECT % _dict,
-                    app_settings.FEEDBACK_BODY % _dict,
+            email = EmailMessage(app_settings.FEEDBACK_SUBJECT % context,
+                    app_settings.FEEDBACK_BODY % context,
                     app_settings.FEEDBACK_FROM,
                     app_settings.FEEDBACK_TO,
                     headers=headers,

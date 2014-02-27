@@ -87,7 +87,9 @@ Dict is::
      'feedback': 'This is a random comment made by random person',
      'path': 'url the feedback was made on',
      'user': User object,
-     'request': request object}  # You can access IP and USER_AGENT via request.
+     'request': request object,  # You can access IP and USER_AGENT via request.
+     ...} # You can access any data sent by your form here so you can customize at will
+     # By just sending additional field in the form.
 
 Other settings are::
 

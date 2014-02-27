@@ -18,6 +18,7 @@ class Feedback(models.Model):
     path = models.CharField(max_length=256,blank=True,null=True)
     user = models.ForeignKey(auth_models.User)
     added = models.DateTimeField(auto_now_add=True)
+    extra = models.TextField(default="")
 
     def upvote(self,user,upvote=True):
         vote = Vote(feedback=self,user=user,vote=upvote)
