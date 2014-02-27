@@ -14,7 +14,7 @@ from django.core.mail import EmailMessage
 @login_required
 def feedback(request):
     if request.method=="POST":
-        context = {key: value for key, value in request.POST.items() if key not in ['feedback', 'path']}
+        context = {key: value for key, value in request.POST.items() if key not in ['feedback', 'path', 'csrfmiddlewaretoken']}
         try:
             context_json = simplejson.dumps(context)
         except:
